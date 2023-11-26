@@ -18,7 +18,7 @@ import type{Log} from "../types/room.type";
 const app = express();
 
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 34123;
 const server = http.createServer(app)
 const io = new Server(server);
 
