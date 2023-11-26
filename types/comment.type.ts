@@ -2,20 +2,12 @@ import type { Moderation, ModerationType, UnparsedModeration } from "./room.type
 import type { User } from "./user.type"
 
 // Type of likes for comments
-export type BotLike = {
-    botName: string
-    time: Date
-}
-export type Like = {
-    userID: string
-    time: Date
-}
+
+
 
 export type ActionsUpdate = {
     senderID: string
     parentCommentID: number
-    likes: Like[]
-    dislikes: Like[]
 }
 
 export type Comment = {
@@ -35,8 +27,6 @@ export type BotComment = {
     content: string
     replies?: BotComment[]
     moderation: Moderation
-    likes: BotLike[]
-    dislikes: BotLike[]
 }
 
 export type LoggedComment = {
@@ -47,8 +37,6 @@ export type LoggedComment = {
     content: string
     replies?: LoggedComment[]
     moderation?: Moderation
-    likes?: Like[]
-    dislikes?: Like[]
 }
 
 export type Reply = {
@@ -70,10 +58,7 @@ export type ProposedReply = {
  * Types for unparsed Data
  */
 
-export type UnparsedBotLike = {
-    botName: string
-    time: number
-}
+
 // Type of comment specification JSON
 export type UnparsedBotComment = {
     botName: string
@@ -81,6 +66,4 @@ export type UnparsedBotComment = {
     content: string
     moderation: UnparsedModeration
     replies?: UnparsedBotComment[]
-    likes?: UnparsedBotLike[]
-    dislikes?: UnparsedBotLike[]
 }

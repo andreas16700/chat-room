@@ -1,4 +1,4 @@
-import type { ActionsUpdate, BotComment, BotLike, ProposedReply, Reply, UnparsedBotComment, UnparsedBotLike } from "../../types/comment.type"
+import type { ActionsUpdate, BotComment, ProposedReply, Reply, UnparsedBotComment } from "../../types/comment.type"
 import type { ProposedComment, Comment } from "../../types/comment.type"
 import type { Moderation } from "../../types/room.type"
 import { ModerationType } from "../../types/room.type.js"
@@ -10,16 +10,6 @@ export module Chats {
     let commentID = 1
     let botCommentID = -1
 
-    const parseLike = (unparsedLike: UnparsedBotLike, startTime: number): BotLike => {
-        
-        const time = new Date(startTime + unparsedLike.time * 1000)
-        
-        const botLike: BotLike = {
-            botName: unparsedLike.botName,
-            time
-        }
-        return botLike
-    }
     const parseModerationType = (type: string): ModerationType => {
         switch(type) {
             case "remove":
@@ -36,8 +26,6 @@ export module Chats {
         const id = botCommentID--
         const time = new Date(startTime + unparsedComment.time * 1000)
         const replies: BotComment[] = unparsedComment.replies?.map((reply: UnparsedBotComment) => parseComment(reply, startTime))
-        const likes: BotLike[] = unparsedComment.likes?.map((like: UnparsedBotLike) => parseLike(like, startTime))
-        const dislikes: BotLike[] = unparsedComment.dislikes?.map((dislike: UnparsedBotLike) => parseLike(dislike, startTime))
         
         const moderation: Moderation = unparsedComment.moderation ? {
             type: parseModerationType(unparsedComment.moderation.type),
@@ -62,8 +50,6 @@ export module Chats {
             content: unparsedComment.content,
             replies,
             moderation,
-            likes,
-            dislikes
         }
         return comment
     }

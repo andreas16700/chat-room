@@ -1,4 +1,4 @@
-import type { BotComment, Comment, Like, LoggedComment, UnparsedBotComment } from "./comment.type"
+import type { BotComment, Comment, LoggedComment, UnparsedBotComment } from "./comment.type"
 import type { User, UserExtended } from "./user.type"
 
 export type Post = {
@@ -8,8 +8,6 @@ export type Post = {
     lead: string
     content: string
     imageName: string
-    likes: Like[]
-    dislikes: Like[]
 }
 
 export type Log = {
@@ -76,8 +74,6 @@ export type UnparsedPost = {
     lead: string
     content: string
     imageName: string,
-    likes: number,
-    dislikes: number
 }
 
 // Type of input room specification JSON file.
