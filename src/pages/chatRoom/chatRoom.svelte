@@ -339,11 +339,13 @@
         </div>
     </div>
     {#if y > 200}
-        <div class="scrollToTop" id="scrollToTop">
-            <a on:click={() => animateScroll.scrollToTop()}> <img src="../../icons/cd-top-arrow.svg" alt="scroll to top">
-                <!-- <br> <b>To Top</b></a> -->
-        </div>
-    {/if}
+    <div class="scrollToTop" id="scrollToTop">
+        <button on:click={() => animateScroll.scrollToTop()}>
+            <img src="../../icons/cd-top-arrow.svg" alt="scroll to top">
+            <!-- <br> <b>To Top</b> -->
+        </button>
+    </div>
+{/if}
 
 
 </div>
