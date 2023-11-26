@@ -4,6 +4,7 @@
     import WelcomePage from "./pages/welcomePage/welcomePage.svelte";
     import Post from "./components/post.svelte";
     import CheckoutPage from "./pages/checkoutPage/checkoutPage.svelte";
+    import Showcase from "./components/showcase.svelte";
     import CheckoutOnRefresh from "./pages/checkoutPage/checkoutOnRefresh.svelte"
 
 	export let url = "";
@@ -13,6 +14,9 @@
 
 	<div class="content">
         <Router url="{url}" >
+            <Route path="/show"let:params>
+                <Showcase/>
+            </Route>
 			<Route path="/:accessCode/room"let:params>
                 <!-- <span>access code: {params.accessCode} </span> -->
                 <Post></Post> 
