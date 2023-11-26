@@ -120,4 +120,20 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     io.emit('userDisconnect', "A user has left the chat")
   })
+
+
+  socket.on("requestShowcaseData", async () => {
+    console.log("received request for showcase data")
+    // Load room data
+    const availableRooms = await Rooms.getAvailableRooms();
+    const [roomHash] = availableRooms[0];
+    const roomData = await Rooms.getStaticRoomData(roomHash);
+
+    // Emit the showcase data to the client
+    socket.emit('showcaseData', {
+        post: roomData.post,
+        comments: roomData.automaticComments,
+        // Include any other data needed for the showcase
+    });
+});
 })

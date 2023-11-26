@@ -1,38 +1,36 @@
 <script lang="ts">
+    import { io } from 'socket.io-client';
     import CommentComp from './comment.svelte';
     import PostComponent from './post.svelte';
     import SendCommentComponent from './sendCommentComponent.svelte';
-    import type {User} from '../../types/user.type'
-    import type {Post} from '../../types/room.type'
-    import type {Comment} from '../../types/comment.type'
+    import type { User } from '../../types/user.type';
+    import type { Post } from '../../types/room.type';
+    import type { Comment } from '../../types/comment.type';
+    import { onMount } from 'svelte';
 
-    // Prepare some sample data here
-    const sampleUser: User = {
-        id: "user123",
-        name: "John Doe",
-        mTurkId: "mturk123",
-        assignmentId: "assign123",
-        hitId: "hit123"
-    };
+    let sampleUser: User | null = null;
+    let sampleComment: Comment | null = null;
+    let samplePost: Post | null = null;
+    let socket;
 
-    const sampleComment: Comment = {
-        id: 1,
-        time: new Date(),
-        user: sampleUser,
-        content: "This is a sample comment.",
-        flagged: false,
-        removed: false
-    };
+    onMount(() => {
+        socket = io();
 
+        // Request static data for showcase
+        socket.emit('requestShowcaseData');
 
-    const samplePost: Post = {
-        id: "post123",
-        time: new Date(),
-        title: "Sample Post Title",
-        lead: "This is a lead for the sample post.",
-        content: "Here is some content for the sample post.",
-        imageName: "sampleImage.jpg",
-    };
+        // Listen for the showcase data from the server
+        socket.on('showcaseData', (data) => {
+            console.log("received data")
+            samplePost = data.post;
+            sampleComment = data.comments[0];
+            sampleUser = sampleComment.user; // Assuming the Comment type includes a User object
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    });
 </script>
 
 <style>
@@ -66,18 +64,22 @@
 </style>
 
 <div class="showcase-grid">
-    <div class="component-container">
-        <div class="component-header">Comment Component</div>
-        <div class="component-body">
-            <CommentComp comment={sampleComment} />
+    {#if sampleComment}
+        <div class="component-container">
+            <div class="component-header">Comment Component</div>
+            <div class="component-body">
+                <CommentComp comment={sampleComment} />
+            </div>
         </div>
-    </div>
-    <div class="component-container">
-        <div class="component-header">Post Component</div>
-        <div class="component-body">
-            <PostComponent post={samplePost} />
+    {/if}
+    {#if samplePost}
+        <div class="component-container">
+            <div class="component-header">Post Component</div>
+            <div class="component-body">
+                <PostComponent post={samplePost} />
+            </div>
         </div>
-    </div>
+    {/if}
     <div class="component-container">
         <div class="component-header">Send Comment Component</div>
         <div class="component-body">
