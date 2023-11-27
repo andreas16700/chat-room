@@ -23,7 +23,7 @@
         socket.on('showcaseData', (data) => {
             console.log("received data")
             samplePost = data.post;
-            sampleComment = data.comments[0];
+            sampleComment = data.comments[1];
             sampleUser = sampleComment.user; // Assuming the Comment type includes a User object
         });
 
@@ -36,9 +36,15 @@
 <style>
     .showcase-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(2, 1fr); /* Two columns layout */
         gap: 20px;
         padding: 20px;
+    }
+
+    .comment-send-container {
+        display: flex;
+        flex-direction: column; /* Stack vertically */
+        gap: 20px;
     }
 
     .component-container {
@@ -47,6 +53,8 @@
         border-radius: 8px;
         overflow: hidden;
         background: white;
+        display: flex;
+        flex-direction: column; /* Make sure internal components stack vertically */
     }
 
     .component-header {
@@ -63,15 +71,8 @@
     }
 </style>
 
+
 <div class="showcase-grid">
-    {#if sampleComment}
-        <div class="component-container">
-            <div class="component-header">Comment Component</div>
-            <div class="component-body">
-                <CommentComp comment={sampleComment} />
-            </div>
-        </div>
-    {/if}
     {#if samplePost}
         <div class="component-container">
             <div class="component-header">Post Component</div>
@@ -80,10 +81,20 @@
             </div>
         </div>
     {/if}
-    <div class="component-container">
-        <div class="component-header">Send Comment Component</div>
-        <div class="component-body">
-            <SendCommentComponent />
+    <div class="comment-send-container">
+        {#if sampleComment}
+            <div class="component-container">
+                <div class="component-header">Comment Component</div>
+                <div class="component-body">
+                    <CommentComp comment={sampleComment} />
+                </div>
+            </div>
+        {/if}
+        <div class="component-container">
+            <div class="component-header">Send Comment Component</div>
+            <div class="component-body">
+                <SendCommentComponent />
+            </div>
         </div>
     </div>
 </div>
