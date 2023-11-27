@@ -60,6 +60,27 @@ import { onMount } from "svelte";
 
 <style lang="scss">
     @import "src/vars";
+
+    .newCommentField {
+        @apply flex flex-row items-center space-x-2 p-4;
+
+        textarea {
+            @apply outline-none w-full bg-transparent border-b border-gray-300 text-gray-800 py-2 px-4 rounded-lg;
+        }
+
+        button {
+            @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+            
+            img {
+                @apply h-8;
+            }
+        }
+    }
+</style>
+
+
+<!-- <style lang="scss">
+    @import "src/vars";
     .newCommentField {
         display: flex;
         flex-direction: row;
@@ -84,4 +105,4 @@ import { onMount } from "svelte";
             }
         }
     }
-</style>
+</style> -->

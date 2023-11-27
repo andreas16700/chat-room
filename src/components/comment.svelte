@@ -104,7 +104,7 @@
 </article>
 {/if}
 
-<style lang="scss">
+<!-- <style lang="scss">
     @import "src/vars";
     
     @keyframes newComment {
@@ -188,5 +188,49 @@
             margin-left: 2rem;
         }
 
+    }
+</style> -->
+
+<style lang="scss">
+    @import "src/vars";
+
+    .commentCard {
+        @apply border-t border-gray-200 text-gray-800 p-4 transition duration-500 ease-in-out;
+
+        &:hover {
+            @apply bg-gray-50;
+        }
+
+        .userInfo {
+            @apply ml-2 text-sm;
+
+            .userName {
+                @apply font-bold;
+            }
+
+            .time {
+                @apply text-xs text-gray-500;
+            }
+        }
+
+        .text {
+            @apply px-2 text-base;
+        }
+
+        .actionsContainer {
+            @apply flex flex-row justify-between items-center p-2;
+
+            .reply-button {
+                @apply hidden;
+
+                &.showReplyButton {
+                    @apply block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+                }
+            }
+        }
+
+        .repliesContainer {
+            @apply ml-8;
+        }
     }
 </style>

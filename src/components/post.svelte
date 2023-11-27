@@ -30,6 +30,52 @@
     }
 </script>
 
+<style lang="scss">
+    @import "src/vars";
+    
+    .container {
+        @apply w-full flex flex-col items-center bg-white shadow-md rounded-lg;
+
+        .center {
+            @apply flex flex-col max-w-2xl;
+
+            .imageContainer {
+                @apply h-40 w-full bg-center bg-cover rounded-t-lg;
+
+                @media (min-width: $mid-bp) {
+                    @apply h-96;
+                }
+            }
+
+            .metaDataContainer {
+                @apply flex flex-row justify-between items-center p-4;
+
+                .time {
+                    @apply text-xs text-gray-500;
+                }
+            }
+
+            .header {
+                @apply p-4;
+
+                .title {
+                    @apply text-xl font-semibold;
+                }
+
+                .lead {
+                    @apply text-base text-gray-700; // Corrected class here
+                }
+            }
+
+            .text {
+                @apply p-4 text-gray-800 text-base leading-relaxed;
+            }
+        }
+    }
+</style>
+
+
+
 <div class="container">
     <div class="center">
         <div class="imageContainer" style="background-image: url({headerImageURL});">
@@ -53,7 +99,7 @@
     </div>
 </div>
 
-<style lang="scss">
+<!-- <style lang="scss">
     @import "src/vars";
     
     .container {
@@ -113,4 +159,4 @@
             }
         }
     }
-</style>
+</style> -->

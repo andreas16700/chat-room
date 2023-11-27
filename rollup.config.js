@@ -6,7 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
-import preprocess from 'svelte-preprocess';
+// import postcss from 'rollup-plugin-postcss';
 import json from '@rollup/plugin-json';
 
 const production = !process.env.ROLLUP_WATCH;
@@ -45,32 +45,38 @@ export default {
 			compact: true
 		}),
 		svelte({
-			preprocess: sveltePreprocess({ sourceMap: !production }),
+			preprocess: sveltePreprocess({ postcss: true }),
 			compilerOptions: {
 				// enable run-time checks when not in production
 				dev: !production
-			},
-			preprocess: preprocess()
+			}
 		}),
 		// we'll extract any component CSS out into
-		// a separate file - better for performance
-		css({ output: 'bundle.css' }),
+    	// a separate file - better for performance
+    	css({ output: 'bundle.css' }),
 
-		// If you have external dependencies installed from
-		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration -
-		// consult the documentation for details:
-		// https://github.com/rollup/plugins/tree/master/packages/commonjs
-		resolve({
+		// // Enable PostCSS support
+		// postcss({
+		// 	extract: true,
+		// 	minimize: production,
+		// 	use: [
+		// 	  ['sass', { includePaths: ['./src/theme', './node_modules'] }]
+		// 	],
+		// 	plugins: [
+		// 	  require('tailwindcss'),
+		// 	  require('autoprefixer'),
+		// 	]
+		//   }),
+	  
+		  resolve({
 			browser: true,
 			dedupe: ['svelte']
-		}),
-		commonjs(),
-		typescript({
+		  }),
+		  commonjs(),
+		  typescript({
 			sourceMap: !production,
 			inlineSources: !production
-		}),
-
+		  }),
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
 		!production && serve(),
